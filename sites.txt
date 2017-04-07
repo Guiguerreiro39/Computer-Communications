@@ -1,0 +1,5 @@
+-> Sites que explicam as cenas:
+
+https://www.caelum.com.br/apostila-java-orientacao-objetos/apendice-sockets/#porta
+
+http://www.ebah.pt/content/ABAAABcOMAA/sockets-java

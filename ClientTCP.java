@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.InputStreamReader;
+import java.lang.String;
 
 
 public class ClientTCP extends Thread {
@@ -18,16 +19,17 @@ public class ClientTCP extends Thread {
 			Socket soc = new Socket("localhost",80);
 			BufferedReader cliInput =  new BufferedReader(new InputStreamReader(System.in));
 			BufferedReader serInput =  new BufferedReader(new InputStreamReader(soc.getInputStream())); 
-			String cmd;
-			PrintWriter output = new PrintWriter(soc.getOutputStream()));
+			String comando;
+			PrintWriter output = new PrintWriter(soc.getOutputStream());
 
 			
-			Thread smsCli = new Thread(new ThreadClientTCP());
+			Thread smsCli = new ThreadClientTCP();
+
 			smsCli.start();
 
 			while( !(comando = cliInput.readLine()).equals("Logout")) {
 
-				output.println(cmd);
+				output.println(comando);
 				output.flush();
 			}
 
@@ -36,7 +38,7 @@ public class ClientTCP extends Thread {
 			soc.close();
 		}
 		catch(IOException e) {
-			System.out.prinln(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	
 	}

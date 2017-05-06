@@ -16,7 +16,10 @@ public class ClientTCP extends Thread {
 
 		try {
 
+
 			Socket soc = new Socket("localhost",80);
+			
+			/*
 			BufferedReader cliInput =  new BufferedReader(new InputStreamReader(System.in));
 			BufferedReader serInput =  new BufferedReader(new InputStreamReader(soc.getInputStream())); 
 			String comando;
@@ -36,6 +39,7 @@ public class ClientTCP extends Thread {
 			soc.shutdownInput();
 			soc.shutdownOutput();
 			soc.close();
+			*/
 		}
 		catch(IOException e) {
 			System.out.println(e.getMessage());

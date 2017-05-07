@@ -41,5 +41,20 @@ public class MonitorByte{
         return data;
     }
 
+    public int getNumPacket(){
+    	return numPacket;
+    }
+
+    public int getPort(){
+    	return port;
+    }
+
+    public long getTempSaida(){
+    	return tempSaida;
+    }
+
+    public InetAddress getAddress(){
+    	return address;
+    }
     
 }

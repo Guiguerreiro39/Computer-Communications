@@ -17,23 +17,30 @@ public class ThreadInputServidor(){
 
 	public void updateTabela(MonitorByte mb){
 		if(mb.getNumPacket != -1){
-			tabela.put(mb.getAddress(), )
+			long millis = System.currentTimeMillis();
+			Servidor s = tabela.get(mb.getAddress());
+			rtt = (1-0.125)*s.getRtt()+0.125*(millis-mb.getTempSaida());
+			s.setRtt(rtt);
+			s.setTcpNum(s.getTcpNum()+1);
+			tabela.put(mb.getAddress(), s);
 		}
 	}
 
 	public void run(){
 		byte[] buffer = new byte[500];
-		DatagramPacket dPacket = new DatagramPacket(buffer, 500);
+		DatagramPacket dPacket = new DatagramPacket(buffer, buffer.length);
 		try{
 			while(true){
 				this.dSocket.receive(dPacket);
 				MonitorByte mb = new MonitorByte(dPacket.getData());
 
 				if(!tabela.contains(mb.getAddress())){
-					// update tabela -> add tabela
+					float taxa = mb.getNumPacket()*100;
+					Servidor sv = new Servidor(1, taxa, 1);
+					tabela.put(mb.getAddress(), sv);
 				}
 				else{
-					updateTabela(mb); //actualizar dados
+					updateTabela(mb);
 				}
 			}
 		}

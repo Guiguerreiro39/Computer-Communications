@@ -25,4 +25,8 @@ public class Servidor{
 	public setRtt(long rtt){
 		this.rtt = rtt;
 	}
+
+	public void setTcpNum(int tcpNum){
+		this.tcpNum = tcpNum;
+	}
 }

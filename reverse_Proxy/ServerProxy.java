@@ -1,4 +1,4 @@
-package tpcc;
+package CC;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,6 +28,9 @@ public class ServerProxy {
 			tip.join();
 			top.join();
 			ss.close();
+		}
+		catch( IOException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package UDP;
+package CC;
 
 import java.io.IOException;
 import java.net.Socket;

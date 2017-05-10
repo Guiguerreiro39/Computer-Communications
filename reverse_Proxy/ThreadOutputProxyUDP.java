@@ -23,10 +23,9 @@ public class ThreadOutputProxyUDP(){
 		try{
 			while(true){
 				for(i=0;i < tabela.size();i++) { 
-				MonitorByte omb = new MonitorByte();
-				byte[] btt = omb.converteByte();
+				MonitorByte mb = new MonitorByte(dPacket.getData());
+				byte[] btt = mb.converteByte();
 				dSocket.send(btt);
-				}
 			}
 		}
 		catch (IOException e) {

@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class MonitorByte{
 
 	private long tempSaida;
@@ -5,7 +7,7 @@ public class MonitorByte{
 	private int numPacket;
 	private int port;
 
-	public PacoteMonitor(byte[] data){
+	public MonitorByte(byte[] data){
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         ObjectInput in = null;
         Object o = null;
@@ -13,7 +15,7 @@ public class MonitorByte{
             in = new ObjectInputStream(bis);
             o = in.readObject(); 
 
-            PacoteMonitor pm = (PacoteMonitor) o;
+            MonitorByte pm = (MonitorByte) o;
 
             this.numPacket = pm.getNumPacket();
             this.tempSaida = pm.getTempSaida();
@@ -25,7 +27,7 @@ public class MonitorByte{
         }
     }
 
-    public byte[] converteByte(){
+    synchronized public byte[] converteByte(){
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
         byte[] data = null;
@@ -41,11 +43,11 @@ public class MonitorByte{
         return data;
     }
 
-    public int getNumPacket(){
+    synchronized public int getNumPacket(){
     	return numPacket;
     }
 
-    public int getPort(){
+    synchronized public int getPort(){
     	return port;
     }
 

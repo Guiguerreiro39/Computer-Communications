@@ -6,25 +6,25 @@ public class Servidor{
 	private float taxa;
 	private int tcpNum;
 
-	synchronized public Servidor(long rtt, float taxa, int tcpNum){
+	public Servidor(long rtt, float taxa, int tcpNum){
 		this.rtt = rtt;
 		this.taxa = taxa;
 		this.tcpNum = tcpNum;
 	}
 
-	synchronized public getRtt(){
+	synchronized public long getRtt(){
 		return rtt;
 	}
 
-	synchronized public getTaxa(){
+	synchronized public float getTaxa(){
 		return taxa;
 	}
 
-	synchronized public getTcpNum(){
+	synchronized public int getTcpNum(){
 		return tcpNum;
 	}
 
-	synchronized public setRtt(long rtt){
+	synchronized public void setRtt(long rtt){
 		this.rtt = rtt;
 	}
 

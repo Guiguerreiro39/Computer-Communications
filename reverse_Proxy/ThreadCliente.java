@@ -1,26 +1,20 @@
 package CC;
 
 
-import java.io.IOException;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+import CC.*;
 
 
-public class ThreadClientTCP{
+public class ThreadCliente extends Thread{
 
 	private Socket socket;
 
 
-	public ThreadClientTCP( Socket socket) {
+	public ThreadCliente( Socket socket) {
 		this.socket = socket;
 	}
 
 	public void run(){
-
-		try{
-			
-		}
-		catch( IOException e) {
-			System.out.println(e.getMessage());
-		}
 	}
 }

@@ -1,25 +1,25 @@
 package CC;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.net.DatagramSocket;
-import java.net.DatagramPacket;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import CC.*;
 
-public class ThreadInputProxyUDP(){
+public class ThreadInputProxy extends Thread{
 
 	private HashMap<InetAddress, Servidor> tabela;
 	private DatagramSocket dSocket;
 
-	public ThreadInputProxyUDP(HashMap<InetAddress, Servidor> tabela, DatagramSocket dSocket) {
-		this.tabela = tabela;
-		this.dSocket = dSocket;
+	public ThreadInputProxy(HashMap<InetAddress, Servidor> tabela, DatagramSocket dSocket) {
+			this.tabela = tabela;
+			this.dSocket = dSocket;
 	}
 
 	public void updateTabela(MonitorByte mb){
-		if(mb.getNumPacket != -1){
+		if(mb.getNumPacket() != -1){
 			long millis = System.currentTimeMillis();
 			Servidor s = tabela.get(mb.getAddress());
-			rtt = (1-0.125)*s.getRtt()+0.125*(millis-mb.getTempSaida());
+			long rtt = (long) ((1-0.125)*s.getRtt()) + (long) (0.125*(millis-mb.getTempSaida()));
 			s.setRtt(rtt);
 			s.setTcpNum(s.getTcpNum()+1);
 			tabela.put(mb.getAddress(), s);
@@ -34,7 +34,7 @@ public class ThreadInputProxyUDP(){
 				this.dSocket.receive(dPacket);
 				MonitorByte mb = new MonitorByte(dPacket.getData());
 
-				if(!tabela.contains(mb.getAddress())){
+				if(!tabela.containsKey(mb.getAddress())){
 					float taxa = mb.getNumPacket()*100;
 					Servidor sv = new Servidor(1, taxa, 1);
 					tabela.put(mb.getAddress(), sv);

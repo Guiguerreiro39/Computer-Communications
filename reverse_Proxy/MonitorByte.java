@@ -63,4 +63,20 @@ public class MonitorByte{
     	return address;
     }
     
+    public void setNumPacket(int numPacket){
+        this.numPacket = numPacket;
+    }
+
+    public void setPort( int port){
+        this.port = port;
+    }
+
+    public void setTempSaida(long tempSaida){
+        this.tempSaida = tempSaida;
+    }
+
+    public void setAddress(InetAddress address) {
+        this.address = address;
+    }
+
 }

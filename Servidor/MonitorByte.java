@@ -11,12 +11,13 @@ public class MonitorByte{
 	private int numPacket;
 	private int port;
 
-    public MonitorByte(InetAddress address, int numPacket, int port){
-        this.tempSaida = System.currentTimeMillis();
-        this.address = address;
+
+    public MonitorByte(int numPacket, InetAddress address , int port) {
         this.numPacket = numPacket;
+        this.address = address;
         this.port = port;
     }
+
 
 	public MonitorByte(byte[] data){
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
@@ -62,16 +63,12 @@ public class MonitorByte{
     	return port;
     }
 
-    synchronized public long getTempSaida(){
+    public long getTempSaida(){
     	return tempSaida;
     }
 
-    synchronized public InetAddress getAddress(){
+    public InetAddress getAddress(){
     	return address;
-    }
-
-    synchronized void setTempSaida(long tempSaida){
-        this.tempSaida = tempSaida;
     }
     
     public void setNumPacket(int numPacket){

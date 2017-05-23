@@ -82,10 +82,6 @@ public class MonitorByte{
         this.port = port;
     }
 
-    public void setTempSaida(long tempSaida){
-        this.tempSaida = tempSaida;
-    }
-
     public void setAddress(InetAddress address) {
         this.address = address;
     }

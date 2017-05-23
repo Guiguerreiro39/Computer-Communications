@@ -3,7 +3,7 @@ package CC;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import CC.*;
+import java.lang.Thread;
 
 public class ThreadInputProxy extends Thread{
 
@@ -16,13 +16,17 @@ public class ThreadInputProxy extends Thread{
 	}
 
 	public void updateTabela(MonitorByte mb){
+		Servidor s = tabela.get(mb.getAddress());
+		long millis = System.currentTimeMillis();
+
 		if(mb.getNumPacket() != -1){
-			long millis = System.currentTimeMillis();
-			Servidor s = tabela.get(mb.getAddress());
 			long rtt = (long) ((1-0.125)*s.getRtt()) + (long) (0.125*(millis-mb.getTempSaida()));
 			s.setRtt(rtt);
-			s.setTcpNum(s.getTcpNum()+1);
 			tabela.put(mb.getAddress(), s);
+		}
+		else{
+			s.setCheck(true);
+			s.setLast(millis);
 		}
 	}
 
@@ -35,8 +39,7 @@ public class ThreadInputProxy extends Thread{
 				MonitorByte mb = new MonitorByte(dPacket.getData());
 
 				if(!tabela.containsKey(mb.getAddress())){
-					float taxa = mb.getNumPacket()*100;
-					Servidor sv = new Servidor(1, taxa, 1);
+					Servidor sv = new Servidor(dPacket.getAddress(), dPacket.getPort(), 0, 0, 0, 1, System.currentTimeMillis(), true);
 					tabela.put(mb.getAddress(), sv);
 				}
 				else{
@@ -44,7 +47,7 @@ public class ThreadInputProxy extends Thread{
 				}
 			}
 		}
-		catch( IOException e) {
+		catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}

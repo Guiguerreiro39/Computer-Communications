@@ -3,36 +3,40 @@ package CC;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import CC.*;
+import java.lang.Thread;
 
 public class ThreadOutputProxy extends Thread{
 
-	private HashMap<InetAddress, Servidor> tabela;
 	private DatagramSocket dSocket;
+	private HashMap<InetAddress, Servidor> tabela;
 
 	public ThreadOutputProxy(HashMap<InetAddress, Servidor> tabela, DatagramSocket dSocket) {
-			this.tabela = tabela;
 			this.dSocket = dSocket;
+			this.tabela = tabela;
 	}
 
 	public void run() {
-		int i;
 		byte[] buffer = new byte[500];
 		DatagramPacket dPacket = new DatagramPacket(buffer, 500);
 
 		try{
 			while(true){
-				for(i=0;i < tabela.size();i++) { 
-				MonitorByte omb = new MonitorByte(buffer);
-			    InetAddress IPAddress = omb.getAddress();
-			    int port = omb.getPort();
-				byte[] btt = omb.converteByte();
-				DatagramPacket sendPacket = new DatagramPacket(btt, btt.length, IPAddress, port);
-				dSocket.send(sendPacket);
+
+				for(Servidor s : tabela.values()){
+
+					InetAddress endIP = s.getEndIP();
+					int port = s.getPort();
+
+					MonitorByte omb = new MonitorByte(endIP, s.getNumPacket(),  port);
+					byte[] btt = omb.converteByte();
+
+					DatagramPacket sendPacket = new DatagramPacket(btt, btt.length, endIP, port);
+					dSocket.send(sendPacket);
 				}
+				Thread.sleep(3000);
 			}
 		}
-		catch (IOException e) {
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}

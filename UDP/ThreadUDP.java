@@ -1,34 +1,43 @@
 package CC;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.net.DatagramSocket;
-import java.net.DatagramPac
+import java.io.*;
+import java.net.*;
 
-public class ThreadUDP{
+public class ThreadUDP extends Thread{
 
 	DatagramSocket dSocket;
+	boolean status;
 
-	public ThreadUDP(DatagramSocket dSocket){
+	public ThreadUDP(boolean svStatus, DatagramSocket dSocket){
 		this.dSocket = dSocket;
+		this.status = status;
 	}
 
 	public void run(){
 		byte[] buffer = new byte[500];
-		byte[] receiveData = new byte[500];
-        byte[] sendData;
+		DatagramPacket dPacket = new DatagramPacket(buffer, buffer.length);
+		try{
+			InetAddress addr = InetAddress.getByName("10.0.2.10");
 
-		while(true){
-	        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-	        dSocket.receive(receivePacket);
+			while(true){
+				if(status){
+					System.out.println("Available");
+			        MonitorByte mb = new MonitorByte(dPacket.getAddress(), -1, dPacket.getPort());
+			        byte[] buf = mb.converteByte();
+			         
+			        DatagramPacket sendPacket = new DatagramPacket(buf, buf.length, addr, 5555);
+			        dSocket.send(sendPacket);
+			        Thread.sleep(3000);
+		    	}
+		    	else{
+		    		Thread.sleep(3000);
+		    		System.out.println("Dead");
+		    	}
+			}
 
-	        MonitorByte mb = new MonitorByte(receivePacket.getData());
-
-	        InetAddress IPAddress = mb.getAddress();
-	        int port = mb.getPort();
-	         
-	        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-	        serverSocket.send(sendPacket);
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
 		}
 	}
 }

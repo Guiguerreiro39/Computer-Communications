@@ -18,8 +18,10 @@ public class ReverseProxy{
 			DatagramSocket dSocket = new DatagramSocket(5555);
 			ThreadInputProxy tip = new ThreadInputProxy(tabela, dSocket);
 			ThreadOutputProxy top = new ThreadOutputProxy(tabela, dSocket);
+			ThreadCheck tcheck = new ThreadCheck(tabela);
 			tip.start();
 			top.start();
+			tcheck.start();
 
 			// TCP
 			InetAddress addr = InetAddress.getByName("10.0.2.1");
@@ -30,6 +32,7 @@ public class ReverseProxy{
 			}
 			tip.join();
 			top.join();
+			tcheck.join();
 			ss.close();
 		}
 		catch(Exception e) {

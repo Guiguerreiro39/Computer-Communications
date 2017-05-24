@@ -8,7 +8,7 @@ public class ThreadUDP extends Thread{
 	DatagramSocket dSocket;
 	boolean status;
 
-	public ThreadUDP(boolean svStatus, DatagramSocket dSocket){
+	public ThreadUDP(boolean status, DatagramSocket dSocket){
 		this.dSocket = dSocket;
 		this.status = status;
 	}

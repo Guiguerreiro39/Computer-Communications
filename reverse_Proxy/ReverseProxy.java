@@ -20,9 +20,10 @@ public class ReverseProxy{
 			ThreadOutputProxy top = new ThreadOutputProxy(tabela, dSocket);
 			tip.start();
 			top.start();
+			System.out.println("Reverse Proxy UDP");
 
 			// TCP
-			InetAddress addr = InetAddress.getByName("10.0.2.1");
+			/*InetAddress addr = InetAddress.getByName("10.0.2.1");
 			ss = new ServerSocket(80,30,addr);
 			while((socket = ss.accept()) != null){
 				ThreadCliente tc = new ThreadCliente(socket);
@@ -30,7 +31,7 @@ public class ReverseProxy{
 			}
 			tip.join();
 			top.join();
-			ss.close();
+			ss.close();*/
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());

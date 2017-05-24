@@ -1,4 +1,4 @@
-package CC;
+//package UDP;
 
 import java.io.*;
 import java.net.*;
@@ -17,7 +17,7 @@ public class ThreadUDP extends Thread{
 		byte[] buffer = new byte[500];
 		DatagramPacket dPacket = new DatagramPacket(buffer, buffer.length);
 		try{
-			InetAddress addr = InetAddress.getByName("10.0.2.10");
+			InetAddress addr = InetAddress.getByName("10.0.2.1");
 
 			while(true){
 				if(status){

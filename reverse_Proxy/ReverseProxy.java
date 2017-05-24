@@ -1,4 +1,3 @@
-package CC;
 import java.io.*;
 import java.lang.Thread;
 import java.net.*;
@@ -23,7 +22,7 @@ public class ReverseProxy{
 			top.start();
 
 			// TCP
-			InetAddress addr = InetAddress.getByName("10.0.2.10");
+			InetAddress addr = InetAddress.getByName("10.0.2.1");
 			ss = new ServerSocket(80,30,addr);
 			while((socket = ss.accept()) != null){
 				ThreadCliente tc = new ThreadCliente(socket);

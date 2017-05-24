@@ -1,9 +1,7 @@
-package CC;
 
 
 import java.io.*;
 import java.net.*;
-import CC.*;
 
 
 public class ThreadCliente extends Thread{

@@ -1,4 +1,3 @@
-package CC;
 
 import java.io.*;
 import java.net.*;

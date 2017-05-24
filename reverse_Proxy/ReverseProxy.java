@@ -22,18 +22,19 @@ public class ReverseProxy{
 			tip.start();
 			top.start();
 			tcheck.start();
+			System.out.println("Reverse Proxy UDP");
 
 			// TCP
-			InetAddress addr = InetAddress.getByName("10.0.2.1");
+			/*InetAddress addr = InetAddress.getByName("10.0.2.1");
 			ss = new ServerSocket(80,30,addr);
 			while((socket = ss.accept()) != null){
 				ThreadCliente tc = new ThreadCliente(socket);
 				tc.start();
-			}
+			}*/
 			tip.join();
 			top.join();
 			tcheck.join();
-			ss.close();
+			//ss.close();
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());

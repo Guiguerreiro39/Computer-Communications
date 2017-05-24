@@ -2,9 +2,11 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 //import UDP.*;
 
-public class MonitorByte{
+public class MonitorByte implements Serializable{
 
 	private long tempSaida;
 	private InetAddress address;
@@ -38,7 +40,7 @@ public class MonitorByte{
         }
     }
 
-    synchronized public byte[] converteByte(){
+    public byte[] converteByte(){
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
         byte[] data = null;
@@ -54,23 +56,23 @@ public class MonitorByte{
         return data;
     }
 
-    synchronized public int getNumPacket(){
+    public int getNumPacket(){
     	return numPacket;
     }
 
-    synchronized public int getPort(){
+    public int getPort(){
     	return port;
     }
 
-    synchronized public long getTempSaida(){
+    public long getTempSaida(){
     	return tempSaida;
     }
 
-    synchronized public InetAddress getAddress(){
+    public InetAddress getAddress(){
     	return address;
     }
 
-    synchronized void setTempSaida(long tempSaida){
+    void setTempSaida(long tempSaida){
         this.tempSaida = tempSaida;
     }
     

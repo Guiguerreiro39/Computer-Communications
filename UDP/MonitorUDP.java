@@ -7,10 +7,10 @@ public class MonitorUDP{
 	public static void main(String args[]){
 		try{
 			System.out.println("Monitor UDP up!");
-			boolean svStatus = true;
+			boolean status = true;
 			DatagramSocket dSocket = new DatagramSocket(5555);
 
-			ThreadUDP tUDP = new ThreadUDP(svStatus, dSocket);
+			ThreadUDP tUDP = new ThreadUDP(status, dSocket);
 			ThreadMonitor tm = new ThreadMonitor(dSocket);
 			tUDP.start();
 			tm.start();
